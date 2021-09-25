@@ -78,6 +78,16 @@ int main(){
     int user_option = -1;
     /* default max number */
     int maxNum = 10;
+
+    /* previous saved maxNum */
+    int p_max = -1;
+    FILE *save_max = fopen("user_save_maxNum.txt", "r+");
+    fscaf(save_max, "%d", &p_max);
+
+    /* check if p_max exist */
+    if (p_max > 0){
+        maxNum = p_max;
+    }
     
     do{
         printf("\n---Welcome to Number Guessing Game---\nPress 1 to play a game\nPress 2 to change the max number\nPress 3 to quit\n");
@@ -96,6 +106,8 @@ int main(){
         } /* end switch */
     }while(!(user_option == 3));
     
+    FILE *out_file = fopen("user_save_maxNum.txt", "w");
+    fprintf(out_file, "%i", maxNum);
     return 0;
 } /* end main */
 
